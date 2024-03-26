@@ -6,19 +6,18 @@
 # autospec commit: c02b2fe
 #
 Name     : qt6quickeffectmaker
-Version  : 6.6.2
-Release  : 13
-URL      : https://download.qt.io/official_releases/qt/6.6/6.6.2/submodules/qtquickeffectmaker-everywhere-src-6.6.2.tar.xz
-Source0  : https://download.qt.io/official_releases/qt/6.6/6.6.2/submodules/qtquickeffectmaker-everywhere-src-6.6.2.tar.xz
+Version  : 6.6.3
+Release  : 14
+URL      : https://download.qt.io/official_releases/qt/6.6/6.6.3/submodules/qtquickeffectmaker-everywhere-src-6.6.3.tar.xz
+Source0  : https://download.qt.io/official_releases/qt/6.6/6.6.3/submodules/qtquickeffectmaker-everywhere-src-6.6.3.tar.xz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : BSD-3-Clause GFDL-1.3 GPL-3.0
+Requires: qt6quickeffectmaker-bin = %{version}-%{release}
 Requires: qt6quickeffectmaker-lib = %{version}-%{release}
 Requires: qt6quickeffectmaker-license = %{version}-%{release}
 BuildRequires : buildreq-cmake
-BuildRequires : mesa-dev
 BuildRequires : qt6base-dev
-BuildRequires : qt6declarative-dev
 BuildRequires : qt6quick3d-dev
 # Suppress stripping binaries
 %define __strip /bin/true
@@ -26,6 +25,15 @@ BuildRequires : qt6quick3d-dev
 
 %description
 No detailed description available
+
+%package bin
+Summary: bin components for the qt6quickeffectmaker package.
+Group: Binaries
+Requires: qt6quickeffectmaker-license = %{version}-%{release}
+
+%description bin
+bin components for the qt6quickeffectmaker package.
+
 
 %package lib
 Summary: lib components for the qt6quickeffectmaker package.
@@ -45,15 +53,15 @@ license components for the qt6quickeffectmaker package.
 
 
 %prep
-%setup -q -n qtquickeffectmaker-everywhere-src-6.6.2
-cd %{_builddir}/qtquickeffectmaker-everywhere-src-6.6.2
+%setup -q -n qtquickeffectmaker-everywhere-src-6.6.3
+cd %{_builddir}/qtquickeffectmaker-everywhere-src-6.6.3
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1711165847
+export SOURCE_DATE_EPOCH=1711485332
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -114,7 +122,7 @@ FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
 FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
 ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
-export SOURCE_DATE_EPOCH=1711165847
+export SOURCE_DATE_EPOCH=1711485332
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/qt6quickeffectmaker
 cp %{_builddir}/qtquickeffectmaker-everywhere-src-%{version}/LICENSES/BSD-3-Clause.txt %{buildroot}/usr/share/package-licenses/qt6quickeffectmaker/b073f11f0c81a95ab5e32aa6b5d23a5955a95274 || :
@@ -134,10 +142,13 @@ popd
 %files
 %defattr(-,root,root,-)
 
+%files bin
+%defattr(-,root,root,-)
+/V3/usr/bin/qqem
+/usr/bin/qqem
+
 %files lib
 %defattr(-,root,root,-)
-/V3/usr/lib64/qt6/bin/qqem
-/usr/lib64/qt6/bin/qqem
 /usr/lib64/qt6/qml/QtQuickEffectMaker/defaultnodes/basic/brightness_contrast.qen
 /usr/lib64/qt6/qml/QtQuickEffectMaker/defaultnodes/basic/colorize.qen
 /usr/lib64/qt6/qml/QtQuickEffectMaker/defaultnodes/basic/coloroverlay.qen
